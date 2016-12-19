@@ -1,0 +1,50 @@
+
+
+
+<div id="fnf-selection-dialog" ng-controller="SelectionController as sel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridModalLabel">Enhance selections</h4>
+            </div>
+
+            <div class="modal-body">
+                <fieldset>
+                    <span class="input-group">
+                        <input autofocus
+                               type="text"
+                               class="form-control"
+                               ng-model="sel.data.quickinput"
+                               >
+                        <!--placeholder="."-->
+                        <a href="javascript:void(0)"
+                           class="input-group-addon dropdown-toggle"
+                           data-toggle="dropdown"
+                           role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false"><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)" ng-click="sel.setQuickinput('.cbr$|.cbz$')">.cbr$|.cbz$</a></li>
+                            <li><a href="javascript:void(0)" ng-click="sel.setQuickinput('.jsp')">.jsp$</a></li>
+                            <li><a href="javascript:void(0)" ng-click="sel.setQuickinput('.epub')">.epub$</a></li>
+                            <li><a href="javascript:void(0)" ng-click="sel.setQuickinput('.')">.</a></li>
+                        </ul>
+
+                    </span>
+                </fieldset>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button data-ng-click="sel.openHelpDlg()" class="btn btn-default pull-left">Help</button>-->
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button fnf-click-on-ctrl-enter data-dismiss="modal" aria-hidden="true" data-ng-click="sel.ok();" class="btn btn-primary" > OK </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,11 @@
+
+
+
+<div class="btn-group" role="group">
+    <button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind="label">
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+        <a ng-repeat="disk in startingPoints" class="dropdown-item" href="#" ng-click="onFolderChanged({folder:disk})" ng-bind="disk"></a>
+    </div>
+</div>

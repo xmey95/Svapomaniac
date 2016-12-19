@@ -1,0 +1,65 @@
+
+
+
+<div id="fnf-find-dialog" ng-controller="FindActionController as find" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridModalLabel">Find</h4>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <form class="form">
+
+                        <fieldset class="form-group col-sm-12">
+                            <label>Search in&nbsp;</label>
+                            <select class="form-control c-select" ng-model="find.data.source">
+                                <option ng-repeat="i in find.data.sources" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-12">
+                            <label>Search for&nbsp;</label>
+                            <div class="input-group">
+                                <input autofocus
+                                       type="text"
+                                       class="form-control"
+                                       ng-model="find.data.quickinput"
+                                       placeholder="pattern"
+                                       >
+
+                                <a href="javascript:void(0)"
+                                   class="input-group-addon dropdown-toggle"
+                                   data-toggle="dropdown"
+                                   role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"><span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" ng-click="find.setQuickinput('.cbr$|.cbz$')">.cbr$|.cbz$</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="find.setQuickinput('.js(.){0,2}$')">.jsp$</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="find.setQuickinput('.epub$')">.epub$</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="find.setQuickinput('.jpg$|.jpeg$|.png$|.gif$|.bmp$')">.</a></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <br>
+                    <br>.
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button data-ng-click="find.openHelpDlg()" class="btn btn-default pull-left">Help</button>-->
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button fnf-click-on-ctrl-enter data-dismiss="modal" aria-hidden="true" data-ng-click="find.ok();" class="btn btn-primary" > Find </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

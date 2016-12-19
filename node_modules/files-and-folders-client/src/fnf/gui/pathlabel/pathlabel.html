@@ -1,0 +1,9 @@
+
+
+<a ng-repeat-start="p in pathes track by $index"
+   class="btn btn-link btn-sm fnf-link-btn"
+   href="#"
+   ng-click="clickOnIndex($index)"
+   ng-class="{'last': $last}"
+   ng-show="p"
+   ng-bind="p"></a><span class="fnf-path-sep" ng-if="!$last" ng-repeat-end>/</span>

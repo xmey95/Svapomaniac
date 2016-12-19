@@ -1,0 +1,9 @@
+{
+  "name": "your-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "chokidar": "^1.6.1",
+    "jQuery": "^1.7.4"
+  }
+}

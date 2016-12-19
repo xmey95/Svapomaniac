@@ -1,0 +1,25 @@
+
+<div class="fullheight modal fade from-left" id="gotoAnythingModal" data-backdrop="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body fullbleed layout vertical fit" ng-controller="GotoAnythingController as g2a">
+
+                <form class="layout horizontal xxxbg-inverse">
+                    <h4 class="pull-left" data-dismiss="modal">
+                        &nbsp;<i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;
+                    </h4>
+                    <input autofocus
+                           class="form-control flex" type="text" placeholder="Go to anything"
+                           ng-model="g2a.selected"
+                           ng-dblclick="g2a.selected= ''"
+                           typeahead-show-hint="true"
+                           uib-typeahead="cmd as cmd.label for cmd in g2a.commands | filter:$viewValue | limitTo:12">
+
+                    <button fnf-click-on-ctrl-enter type="button" class=" btn btn-primary pull-right" data-dismiss="modal" ng-click="g2a.execute()"> Execute </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+
+<div id="fnf-groupfiles-action-dialog" class="fullscreen modal fade from-bottom" ng-controller="GroupfilesActionController as gf" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body fullbleed layout vertical fit">
+
+                <div>
+                    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">&times;</button>
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 pull-left">
+                        <h4><i class="fa fa-arrow-circle-o-down" data-dismiss="modal"></i> Group files</h4>
+                    </div>
+                </div>
+
+                <div>
+                    <form class="form-inline">
+                        <fieldset class="form-group col-sm-3">
+                            <label>Mode&nbsp;</label>
+                            <select autofocus class="form-control c-select" ng-model="gf.data.modus" ng-change="gf.updateTableModel()">
+                                <option ng-repeat="i in gf.data.modes" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-3" ng-show="gf.data.modus === 'new_folder'">
+                            <input class="form-control" type="text" ng-model="gf.data.newFolder" ng-change="gf.updateTableModel()" placeholder="Folder Name">
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-2" ng-show="gf.data.modus !== 'new_folder'">
+                            <label>
+                                <input class="form-control" type="checkbox" ng-model="gf.data.ignoreBrackets" ng-click="gf.updateTableModel()">
+                                Ignore Brackets
+                            </label>
+                            <select class="form-control invisible "><!-- dirty workaround --></select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-2">
+                            <label>
+                                <input class="form-control" type="checkbox" ng-model="gf.data.useSsourceDir" ng-click="gf.updateTableModel()">
+                                Use Source Dir
+                            </label>
+                            <select class="form-control invisible "><!-- dirty workaround --></select>
+                        </fieldset>
+
+                        <fieldset ng-show="gf.data.modus==='runnig_number'" class="form-group col-sm-3">
+                            <label>Minimal group size&nbsp;</label>
+                            <select class="form-control c-select" ng-model="gf.data.minsize" ng-change="gf.updateTableModel()">
+                                <option ng-repeat="i in gf.data.minsizes" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+                        <fieldset ng-show="gf.data.modus==='runnig_number'" class="form-group col-sm-2 text-muted">
+                            <label ng-bind="gf.data.groupCount"></label>
+                            <label>&nbsp;groups found</label>
+                            <select class="form-control invisible "><!-- dirty workaround --></select>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div id="fnf-groupfiles-grid-container" class="fnf-grid-container scroll flex horizontal layout">
+                    <div id="fnf-groupfiles-grid" class="fnf-grid" ag-grid="gf.data.gridOptions"></div>
+                </div>
+
+                <div class="horizontal layout fnf-panel-bg">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button fnf-click-on-ctrl-enter type="button" class="btn btn-primary pull-right" data-dismiss="modal"
+                                ng-disabled="!gf.data.okEnabled" ng-click="gf.move()"> Move </button>
+                        <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
+                                ng-disabled="!gf.data.okEnabled" ng-click="gf.copy()"> Copy </button>
+                        <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

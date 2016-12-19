@@ -1,0 +1,19 @@
+
+
+
+<div class="input-group text-xs-right">
+    <input class="form-control fnf-filter-input"
+           type="text" placeholder="Filter"
+           ng-show="filterInputVisible"
+           ng-change="filterInputChanged()"
+           ng-model="quickFilterText">
+    <span class="input-group-btn">
+        <button class="btn btn-link" type="submit"
+            ng-click="onClicked()"
+            ng-dblclick="onDblClicked()"><i class="fa fa-filter"></i></button>
+    </span>
+</div>
+
+
+
+

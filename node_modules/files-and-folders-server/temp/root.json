@@ -1,0 +1,24 @@
+{
+  "activePanelIndex": 1,
+  "tabs": [
+    [
+      {
+        "path": "/Volumes/data/ebooks/comics/_deu/___todo/a1",
+        "label": "a1",
+        "active": true
+      }
+    ],
+    [
+      {
+        "path": "/Users/marc",
+        "label": "marc",
+        "active": false
+      },
+      {
+        "path": "/Volumes/data/ebooks/comics/_deu/___todo",
+        "label": "___todo",
+        "active": true
+      }
+    ]
+  ]
+}

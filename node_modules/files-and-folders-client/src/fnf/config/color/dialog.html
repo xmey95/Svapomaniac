@@ -1,0 +1,40 @@
+
+<div id="fnf-colorconfig-action-dialog" class="fullheight modal fade from-left" ng-controller="ColorconfigController as colorconfigCtrl" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body fullbleed layout vertical fit">
+
+                <div>
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 pull-left">
+                        <h4><i class="fa fa-arrow-circle-o-left" data-dismiss="modal"></i> Color Config</h4>
+                    </div>
+                </div>
+
+                <div class="flex-1 scroll">
+                    <form class="form-inline">
+                        <fieldset class="form-group col-sm-12">
+                            <div ng-repeat="ckey in colorconfigCtrl.getCustomcolorKeys()">
+                                <small><label id="customcolor_{{ckey}}" ng-bind="'--' + ckey + ':'"></label></small><br>
+                                <input type="text"  class="form-control form-control-sm color-picker" ng-model="colorconfigCtrl.data[ckey]">
+                                <!--<color-popover visible="true"-->
+                                               <!--target="'#customcolor_' + ckey"-->
+                                               <!--values="['&#45;&#45;' + ckey]"></color-popover>-->
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="horizontal layout fnf-panel-bg">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <!--<button fnf-click-on-ctrl-enter type="button" class="btn btn-primary pull-right" data-dismiss="modal"-->
+                                <!--ng-disabled="!gf.data.okEnabled" ng-click="gf.move()"> Move </button>-->
+                        <!--<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"-->
+                                <!--ng-disabled="!gf.data.okEnabled" ng-click="gf.copy()"> Copy </button>-->
+                        <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

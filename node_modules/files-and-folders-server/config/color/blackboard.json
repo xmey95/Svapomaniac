@@ -1,0 +1,45 @@
+{
+  "name": "dark",
+  "colors": {
+    "--primary-color": "#a9a9a9",
+    "--primary-background-color": "#0c1021",
+    "--primary-background-bit-different-color": "#060812",
+    "--secondary-background-color": "#303139",
+    "--secondary-color": "#fff",
+    "--secondary-muted-color": "#eee",
+    "--button-secondary-background-color": "#282b37",
+
+    "--header-link-color": "#fff",
+    "--header-link-bit-different-color": "#eee",
+    "--header-link-selected-color": "#C7CD8B",
+    "--header-fav-star-selected-color": "var(--item-selected-color)",
+
+    "--nav-tabs-border-color": "#000",
+    "--item-selected-color": "#E0DF85",
+    "--item-muted-color": "#555",
+
+    "--cursor-row-background-color": "#758129",
+    "--cursor-row-color": "#f8f8f8",
+
+    "--dropdown-focussed-background-color": "#000",
+
+    "--footer-primary-background-color": "var(--secondary-background-color)",
+    "--footer-primary-color": "var(--secondary-color)",
+    "--footer-filecount-background-color": "var(--secondary-secondary-color)",
+    "--footer-filecount-color": "#ddd",
+
+    "--footer-btn-secondary-background-color": "var(--footer-primary-background-color)",
+    "--footer-btn-secondary-border-color": "var(--footer-primary-background-color)",
+    "--footer-btn-secondary-color": "#fff",
+
+    "--tooltip-background-color": "rgba(0,0,0,0.75)",
+    "--tooltip-color": "#fff",
+    "--tooltip-background-input-color": "#fff",
+    "--tooltip-input-color": "#000",
+
+    "--scrollbar-track-background": "var(--primary-background-color)",
+    "--scrollbar-thumb-background": "var(--secondary-background-color)",
+    "--scrollbar-thumb-border-color": "#050505",
+    "--scrollbar-thumb-active-background": "var(--item-selected-color)"
+  }
+}

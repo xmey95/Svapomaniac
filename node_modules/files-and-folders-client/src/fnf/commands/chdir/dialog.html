@@ -1,0 +1,43 @@
+
+
+<div class="fullscreen modal fade from-right" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body fullbleed layout vertical fit" ng-controller="ChdirActionController as chdir">
+
+                <div>
+                    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">&times;</button>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pull-left">
+                        <h4><i class="fa fa-arrow-circle-o-right" data-dismiss="modal"></i>
+                            &nbsp;Change Dir
+                        </h4>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-left">
+                        <!--<filter-input quick-filter-text="chdir.gridOptions.quickFilterText"></filter-input>-->
+                        <input autofocus class="form-control" type="text"
+                               placeholder="Filter"
+                               ng-dblclick="chdir.gridOptions.quickFilterText = ''"
+                               ng-model="chdir.gridOptions.quickFilterText">
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 pull-left">
+                        <h4 ng-show="chdir.running" ng-click="chdir.cancelWalk()"><i class="fa fa-circle-o-notch fa-spin pull-right"></i></h4>
+                    </div>
+                </div>
+
+                <div id="fnf-chdir-grid-container" class="fnf-grid-container scroll flex horizontal layout fnf-active-panel">
+                    <div id="fnf-chdir-grid" class="fnf-grid" ag-grid="chdir.gridOptions"></div>
+                </div>
+
+                <div  class="horizontal layout fnf-panel-bg">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button fnf-click-on-ctrl-enter type="button" class="btn btn-primary pull-right" data-dismiss="modal"
+                                ng-click="chdir.chdirClicked()"> Chdir </button>
+
+                        <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

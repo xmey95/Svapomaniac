@@ -1,0 +1,197 @@
+
+
+<div id="fnf-multirename-action-dialog" class="fullscreen modal fade from-bottom" 
+     ng-controller="MultirenameActionController as multirename" data-backdrop="false" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body fullbleed layout vertical fit">
+
+                <div>
+                    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">&times;</button>
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 pull-left">
+                        <h4><i class="fa fa-arrow-circle-o-down" data-dismiss="modal"></i> Multi Rename</h4>
+                    </div>
+                </div>
+
+                <div>
+                    <form class="form ">
+                        <fieldset class="form-group col-sm-3" style="margin-bottom: 0;">
+                            <label for="nameInput">New Name</label>
+                            <input autofocus
+                                   type="text"
+                                   class="form-control form-group col-sm-6"
+                                   id="nameInput"
+                                   placeholder="[N].[E]"
+                                   ng-model="multirename.data.name"
+                                   ng-dblclick="multirename.data.name='[N].[E]';multirename.softUpdateTableModel();"
+                                   ng-change="multirename.softUpdateTableModel()">
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-3">
+                            <label>Capitalize</label>
+                            <select class="form-control c-select"
+                                    ng-model="multirename.data.capitalizeMode"
+                                    ng-change="multirename.softUpdateTableModel()">
+                                <option ng-repeat="i in multirename.options.capitalizeModes" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-2">
+                            <label>Counter Start</label>
+                            <select class="form-control c-select"
+                                    ng-model="multirename.data.counterStart"
+                                    ng-change="multirename.softUpdateTableModel()">
+                                <option ng-repeat="i in multirename.options.starts" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-2">
+                            <label>Counter Step</label>
+                            <select class="form-control c-select"
+                                    ng-model="multirename.data.counterStep"
+                                    ng-change="multirename.softUpdateTableModel()">
+                                <option ng-repeat="i in multirename.options.steps" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-2">
+                            <label>Counter Digits</label>
+                            <select class="form-control c-select"
+                                    ng-model="multirename.data.counterDigits"
+                                    ng-change="multirename.softUpdateTableModel()">
+                                <option ng-repeat="i in multirename.options.digits" value="{{i.value}}" ng-bind="i.label"></option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-12">
+                            <label>
+                                [N] Name,
+                                [N#-#] Part of Name,
+                                [E] Extension,
+                                [E#-#] Part of Ext,
+                                [C] Counter,
+                                [P] Parent Dir
+                            </label>
+                        </fieldset>
+                    </form>
+
+                    <form class="form form-inline">
+                        <fieldset class="form-group col-sm-2">
+                            <label class="c-input c-checkbox">
+                                <input type="checkbox" ng-model="multirename.data.replaceGermanUmlauts" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Fix german umlauts
+                            </label>
+                        </fieldset>
+                        <fieldset class="form-group col-sm-2">
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="multirename.data.replaceRiskyChars" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Replace risky chars
+                            </label>
+                        </fieldset>
+                        <fieldset class="form-group col-sm-2">
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="multirename.data.replaceSpaceToUnderscore" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Space to underscore
+                            </label>
+                        </fieldset>
+                        <fieldset class="form-group col-sm-2">
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="multirename.data.replaceParentDir" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Remove parent dir
+                            </label>
+                        </fieldset>
+                    </form>
+
+                    <form class="form form-inline">
+                        <fieldset class="form-group col-sm-12">
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="multirename.data.replacementsChecked" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Search and replace
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="form-group col-sm-12 fnf-replacements"
+                                  ng-show="multirename.data.replacementsChecked"
+                                  ng-repeat="rep in multirename.data.replacements">
+
+
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="rep.checked" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                Replace
+                            </label>
+
+                            <button class="btn btn-link brn-sm dropdown-toggle" type="button" id="dropdownMenu{{$index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu{{$index}}">
+                                <a ng-repeat="makro in multirename.data.makros"
+                                   ng-click="multirename.makroSelected(rep, makro)"
+                                   class="dropdown-item" href="#">
+                                    <div ng-bind="makro.title"></div>
+                                    <div ng-bind="makro.example" class="text-muted"></div>
+                                </a>
+                            </div>
+
+                            <input type="text"
+                                   class="form-control form-control-sm fnf-mr-textfrom"
+                                   id="textFrom{{$index}}"
+                                   ng-model="rep.textFrom"
+                                   ng-disabled="!rep.checked"
+                                   ng-change="multirename.softUpdateTableModel()">
+
+                            <label>with</label>
+
+                            <input type="text"
+                                   class="form-control form-control-sm"
+                                   ng-model="rep.textTo"
+                                   ng-disabled="!rep.checked"
+                                   ng-change="multirename.softUpdateTableModel()">
+
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="rep.regExpr" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                RegExp
+                            </label>
+
+                            <label class="c-input c-checkbox">
+                                <input class="form-control" type="checkbox" ng-model="rep.ifFlag" ng-click="multirename.softUpdateTableModel()">
+                                <span class="c-indicator"></span>
+                                only if match
+                            </label>
+
+                            <input type="text"
+                                   class="form-control  form-control-sm"
+                                   ng-model="rep.ifMatch"
+                                   ng-disabled="!rep.ifFlag || !rep.checked"
+                                   ng-change="multirename.softUpdateTableModel()">
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div id="fnf-groupfiles-grid-container" class="fnf-grid-container scroll flex horizontal layout">
+                    <div id="fnf-multirename-grid" class="fnf-grid" ag-grid="multirename.data.gridOptions"></div>
+                </div>
+
+                <div class="horizontal layout fnf-panel-bg">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button type="button"
+                                class="btn btn-primary pull-right"
+                                data-dismiss="modal"
+                                ng-disabled="!multirename.data.okEnabled"
+                                ng-click="multirename.multirename()"> Rename </button>
+                        <button type="button"
+                                class="btn btn-secondary pull-right"
+                                data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

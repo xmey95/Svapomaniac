@@ -1,0 +1,54 @@
+{
+  "mapping": [
+
+    {"shortcut":  "space",  "id": "SPACE_PRESSED"},
+    {"shortcut":  "home",  "id": "HOME_PRESSED"},
+    {"shortcut":  "end",  "id": "END_PRESSED"},
+    {"shortcut":  "pageup",  "id": "PAGEUP_PRESSED"},
+    {"shortcut":  "pagedown",  "id": "PAGEDOWN_PRESSED"},
+    {"shortcut":  "enter",  "id": "ENTER_PRESSED"},
+    {"shortcut":  "insert",  "id": "TOGGLE_SELECTION_CURRENT_ROW"},
+    {"shortcut":  "control f12",  "id": "OPEN_GOTO_ANYTHING_DLG"},
+    {"shortcut":  "f3",  "id": "OPEN_COPY_DLG"},
+    {"shortcut":  "alt f5",  "id": "OPEN_COPY_DLG"},
+    {"shortcut":  "f6",  "id": "OPEN_MOVE_DLG"},
+    {"shortcut":  "f7",  "id": "OPEN_MKDIR_DLG"},
+    {"shortcut":  "f8",  "id": "OPEN_DELETE_DLG"},
+    {"shortcut":  "f9",  "id": "OPEN_DELETE_DLG"},
+    {"shortcut":  "control delete",  "id": "OPEN_DELETE_DLG"},
+    {"shortcut":  "control alt r",  "id": "OPEN_DELETE_EMPTY_FOLDERS_DLG"},
+
+    {"shortcut":  "alt f10",  "id": "OPEN_CHDIR_DLG"},
+
+    {"shortcut":  "alt 1",  "id": "SELECT_LEFT_PANEL"},
+    {"shortcut":  "alt 2",  "id": "SELECT_RIGHT_PANEL"},
+    {"shortcut":  "tab",  "id": "TOGGLE_PANEL"},
+    {"shortcut":  "alt t",  "id": "ADD_NEW_TAB"},
+    {"shortcut":  "shift t",  "id": "REMOVE_TAB"},
+
+    {"shortcut":  "control shift s",  "id": "SAVE_CONFIG"},
+    {"shortcut":  "alt g",  "id": "OPEN_GROUPFILES_DLG"},
+    {"shortcut":  "alt d",  "id": "OPEN_FIND_DUBLICATES_DLG"},
+    {"shortcut":  "alt f6",  "id": "OPEN_MULTIRENAME_DLG"},
+    {"shortcut":  "shift f6",  "id": "OPEN_RENAME_DLG"},
+    {"shortcut":  "alt f7",  "id": "OPEN_FIND_DLG"},
+    {"shortcut":  "control shift f12",  "id": "RELOAD_DIR"},
+
+    {"shortcut":  "num_add",  "id": "OPEN_SELECT_DLG"},
+    {"shortcut":  "control num_add",  "id": "SELECT_ALL"},
+    {"shortcut":  "cmd alt a",  "id": "SELECT_ALL"},
+
+    {"shortcut":  "num_subtract",  "id": "OPEN_DESELECT_DLG"},
+    {"shortcut":  "control num_subtract",  "id": "DESELECT_ALL"},
+
+    {"shortcut":  "num_multiply",  "id": "TOGGLE_SELECTION"},
+    {"shortcut":  "shift pageup",  "id": "NAVIGATE_LEVEL_DOWN"},
+    {"shortcut":  "shift pagedown",  "id": "NAVIGATE_BACK"},
+    {"shortcut":  "alt pageup",  "id": "NAVIGATE_LEVEL_DOWN"},
+    {"shortcut":  "alt pagedown",  "id": "NAVIGATE_BACK"},
+    {"shortcut":  "control pageup",  "id": "NAVIGATE_LEVEL_DOWN"},
+    {"shortcut":  "control pagedown",  "id": "NAVIGATE_BACK"},
+
+    {"shortcut":  "control enter",  "id": "DUMMY_ACTION"}
+  ]
+}
