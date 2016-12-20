@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="photon/css/photon.css">
 
     <!-- Electron Javascript -->
-    <script type="text/javascript" src="scripts.js"></script>
   </head>
 
   <body>
@@ -15,8 +14,10 @@
       <div class="window-content">
         <div class="pane-group">
           <div class="pane-sm sidebar">
-            <nav class="nav-group" id="sidebar">
+            <nav class="nav-group">
               <h5 class="nav-group-title">Projects</h5>
+              <div class="sidebarview" id="sidebar">
+              </div>
             </nav>
                 <button class="btn btn-large btn-primary pull-left" style="position: absolute; bottom: 0; margin: 5px;" onclick="createProject('file')">
                   Add
@@ -77,5 +78,7 @@
         </div>
       </div>
     </div>
+      <script type="text/javascript" src="scripts.js"></script>
+      <script>showProjects();</script>
   </body>
 </html>

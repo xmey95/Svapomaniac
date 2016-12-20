@@ -9,7 +9,6 @@ const {Menu, BrowserWindow, MenuItem, shell} = remote;
 const fs = require('fs-extra')
 const path = require('path')
 let addWindow
-showProjects();
 var App = {
   // show "add" window
   add: function () {
@@ -37,6 +36,7 @@ function deleteProject(filename) {
       return console.error(err);
     }
   else{
+    showProjects();
     dialog.showMessageBox({ message: "The project has been deleted!", buttons: ["OK"] });
   }
   })
@@ -44,12 +44,14 @@ function deleteProject(filename) {
 
 function createProject(filename) {
   var path = __dirname + "/Projects/" + filename + ".json"
-  console.log("Going to write into existing file");
+  console.log("Going to create project fileg file");
   fs.writeJSON(path,  function(err) {
     if (err) {
       return console.error(err);
     }
   });
+  showProjects();
+  dialog.showMessageBox({ message: "The project has been created!", buttons: ["OK"] });
 }
 
 function showProjects() {
@@ -58,22 +60,16 @@ function showProjects() {
     if (err) {
       return console.error(err);
     }
-    var first=1;
+    var str = '';
     files.forEach( function (file){
-      if(first==1){
-        $("<a class='nav-group-item active'>"+ file +"</a>").appendTo("#sidebar");
-        first=0;
-      }
-      else{
-        $("<a class='nav-group-item'>"+ file +"</a>").appendTo("#sidebar");
-      }
+        str += '<a class="nav-group-item" id="' + file + '" onclick="openProject(this.id)">' + file + '</a>';
     });
+      document.getElementById("sidebar").innerHTML = str;
   });
 }
 
-$(document).ready(function () {
-    $('nav > a').click(function(e) {
-      $(this).addClass("active").siblings().removeClass("active");
-    });
-
-});
+function openProject(id) {
+  $("a.active").removeClass("active");
+  document.getElementById(id).className += " active";
+  console.log(id);
+}
