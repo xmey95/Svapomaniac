@@ -15,19 +15,8 @@
       <div class="window-content">
         <div class="pane-group">
           <div class="pane-sm sidebar">
-            <nav class="nav-group">
+            <nav class="nav-group" id="sidebar">
               <h5 class="nav-group-title">Projects</h5>
-              <a class="nav-group-item active">
-                <!--<span class="icon icon-home"></span>-->
-                connors
-              </a>
-              <a class="nav-group-item">
-                <!--<span class="icon icon-home"></span>-->
-                connors
-              </a>
-              <!--<span class="nav-group-item">
-                Downloads
-              </span>-->
             </nav>
                 <button class="btn btn-large btn-primary pull-left" style="position: absolute; bottom: 0; margin: 5px;" onclick="createProject('file')">
                   Add
@@ -41,7 +30,7 @@
                   <button class="btn btn-default" onclick="App.add()">
                     <span class="icon icon-pencil"></span>
                   </button>
-                  <button class="btn btn-default" onclick="deleteProject()">
+                  <button class="btn btn-default" onclick="deleteProject('file')">
                     <span class="icon icon-cancel-circled"></span>
                   </button>
                 </div>

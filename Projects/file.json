@@ -1,5 +1,0 @@
-function (err) {
-   if (err) {
-      return console.error(err);
-   }
-}
