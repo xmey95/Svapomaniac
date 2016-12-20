@@ -8,7 +8,10 @@ const {remote} = require('electron');
 const {Menu, BrowserWindow, MenuItem, shell} = remote;
 const fs = require('fs-extra')
 const path = require('path')
+
 let addWindow
+
+//Object app(Controller)
 var App = {
   // show "add" window
   add: function () {
@@ -29,6 +32,7 @@ var App = {
   }
 };
 
+//Delete selected Project
 function deleteProject(filename) {
   var path = __dirname + "/Projects/" + filename + ".json"
   fs.unlink(path, function(err) {
@@ -42,6 +46,7 @@ function deleteProject(filename) {
   })
 }
 
+//Create a new Project
 function createProject(filename) {
   var path = __dirname + "/Projects/" + filename + ".json"
   console.log("Going to create project fileg file");
@@ -54,6 +59,7 @@ function createProject(filename) {
   dialog.showMessageBox({ message: "The project has been created!", buttons: ["OK"] });
 }
 
+//Display and refresh Sidebar
 function showProjects() {
   console.log("Going to read directory /Projects");
   fs.readdir(__dirname + "/Projects/",function(err, files){
@@ -62,12 +68,14 @@ function showProjects() {
     }
     var str = '';
     files.forEach( function (file){
-        str += '<a class="nav-group-item" id="' + file + '" onclick="openProject(this.id)">' + file + '</a>';
+      var name = path.basename(file);
+        str += '<a class="nav-group-item" id="' + file + '" onclick="openProject(this.id)">' + name.substr(0, name.length-5) + '</a>';
     });
       document.getElementById("sidebar").innerHTML = str;
   });
 }
 
+//Open Project in main Window
 function openProject(id) {
   $("a.active").removeClass("active");
   document.getElementById(id).className += " active";
