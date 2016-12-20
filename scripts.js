@@ -10,6 +10,7 @@ const fs = require('fs-extra')
 const path = require('path')
 
 let addWindow
+let active
 
 //Object app(Controller)
 var App = {
@@ -33,14 +34,13 @@ var App = {
 };
 
 //Delete selected Project
-function deleteProject(filename) {
-  var path = __dirname + "/Projects/" + filename + ".json"
+function deleteProject() {
+  var path = __dirname + "/Projects/" + active;
   fs.unlink(path, function(err) {
    if (err) {
       return console.error(err);
     }
   else{
-    showProjects();
     dialog.showMessageBox({ message: "The project has been deleted!", buttons: ["OK"] });
   }
   })
@@ -55,7 +55,6 @@ function createProject(filename) {
       return console.error(err);
     }
   });
-  showProjects();
   dialog.showMessageBox({ message: "The project has been created!", buttons: ["OK"] });
 }
 
@@ -75,8 +74,26 @@ function showProjects() {
   });
 }
 
+//Execute Submit Form AddProject
+function validateForm() {
+  var x = document.forms["addproject"]["nameproject"].value;
+  var path = __dirname + "/Projects/" + x + ".json";
+  if (x == "" || fs.existsSync(path)) {
+        dialog.showMessageBox({ message: "Invalid name!", buttons: ["OK"] });
+        return false;
+    }
+    createProject(x);
+    App.close();
+}
+
+//Watcher Sidebar
+fs.watch(__dirname + "/Projects", function (e) {
+  showProjects()
+});
+
 //Open Project in main Window
 function openProject(id) {
+  active=id;
   $("a.active").removeClass("active");
   document.getElementById(id).className += " active";
   console.log(id);
