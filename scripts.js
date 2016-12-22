@@ -36,6 +36,7 @@ var App = {
 //Delete selected Project
 function deleteProject() {
   var path = __dirname + "/Projects/" + active;
+  active = '';
   fs.unlink(path, function(err) {
    if (err) {
       return console.error(err);
@@ -74,6 +75,8 @@ function showProjects() {
   });
 }
 
+//Display project content
+
 //Execute Submit Form AddProject
 function validateForm() {
   var x = document.forms["addproject"]["nameproject"].value;
@@ -88,8 +91,11 @@ function validateForm() {
 
 //Watcher Sidebar
 fs.watch(__dirname + "/Projects", function (e) {
-  showProjects()
+  showProjects();
+  //Show Project content
 });
+
+//Watcher content
 
 //Open Project in main Window
 function openProject(id) {
@@ -97,4 +103,5 @@ function openProject(id) {
   $("a.active").removeClass("active");
   document.getElementById(id).className += " active";
   console.log(id);
+  //Show Project content
 }
