@@ -4,6 +4,7 @@
   "main": "main.js",
   "dependencies": {
     "chokidar": "^1.6.1",
+    "electron-json-storage": "^2.1.0",
     "fs-extra": "^1.0.0",
     "jQuery": "^1.7.4"
   },

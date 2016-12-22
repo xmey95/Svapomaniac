@@ -10,12 +10,16 @@ const fs = require('fs-extra')
 const path = require('path')
 
 let addWindow
-let active
+let active = '';
 
 //Object app(Controller)
 var App = {
   // show "add" window
   add: function () {
+    if(active == ''){
+      dialog.showMessageBox({ message: "First open a project!", buttons: ["OK"] });
+      return;
+    }
     var params = {toolbar: false, resizable: false, show: true, height: 250, width: 350};
     addWindow = new BrowserWindow(params);
     addWindow.setMenu(null);
@@ -49,14 +53,26 @@ function deleteProject() {
 
 //Create a new Project
 function createProject(filename) {
-  var path = __dirname + "/Projects/" + filename + ".json"
+  var path = __dirname + "/Projects/" + filename + ".json";
+  var JSONObj = new Object();
+  JSONObj = { "Voices" : [] };
   console.log("Going to create project fileg file");
-  fs.writeJSON(path,  function(err) {
+  fs.writeJSON(path, JSONObj, function(err) {
     if (err) {
       return console.error(err);
     }
   });
   dialog.showMessageBox({ message: "The project has been created!", buttons: ["OK"] });
+}
+
+//Create a new Voice
+function createVoice(name, money) {
+  var path = __dirname + "/Projects/" + active;
+  var add = {nameVoice: name, moneyVoice: money};
+  fs.writeJson(path, add, function (err) {
+  console.log(err)
+})
+dialog.showMessageBox({ message: "The voice has been added!", buttons: ["OK"] });
 }
 
 //Display and refresh Sidebar
@@ -86,6 +102,18 @@ function validateForm() {
         return false;
     }
     createProject(x);
+    App.close();
+}
+
+//Execute Submit Form AddVoice
+function validateFormVoice() {
+  var x = document.forms["addvoice"]["addvoicename"].value;
+  var y = document.forms["addvoice"]["addvoicemoney"].value;
+  if (x == "" || y == "") {
+        dialog.showMessageBox({ message: "Invalid name!", buttons: ["OK"] });
+        return false;
+    }
+    createVoice(x, y);
     App.close();
 }
 
