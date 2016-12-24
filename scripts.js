@@ -24,6 +24,7 @@ var App = {
     addWindow = new BrowserWindow(params);
     addWindow.setMenu(null);
     addWindow.loadURL('file://' + __dirname + '/add.html');
+    addWindow.openDevTools();
   },
   addProject: function () {
     var params = {toolbar: false, resizable: false, show: true, height: 120, width: 200};
@@ -39,8 +40,13 @@ var App = {
 
 //Delete selected Project
 function deleteProject() {
+  if(active == ''){
+    dialog.showMessageBox({ message: "First open a project!", buttons: ["OK"] });
+    return;
+  }
   var path = __dirname + "/Projects/" + active;
   active = '';
+  document.getElementById("content").innerHTML = '';
   fs.unlink(path, function(err) {
    if (err) {
       return console.error(err);
@@ -48,7 +54,7 @@ function deleteProject() {
   else{
     dialog.showMessageBox({ message: "The project has been deleted!", buttons: ["OK"] });
   }
-  })
+})
 }
 
 //Create a new Project
@@ -66,13 +72,19 @@ function createProject(filename) {
 }
 
 //Create a new Voice
-function createVoice(name, money) {
-  var path = __dirname + "/Projects/" + active;
-  var add = {nameVoice: name, moneyVoice: money};
-  fs.writeJson(path, add, function (err) {
-  console.log(err)
-})
-dialog.showMessageBox({ message: "The voice has been added!", buttons: ["OK"] });
+function createVoice(namev, moneyv) {
+  var path = __dirname + '/Projects/prova.json';
+  var file = fs.readFileSync(path);
+  var js = JSON.parse(file);
+  var change = {"name" : namev, "money" : moneyv };
+  js.push(change);
+  jsonStr = JSON.stringify(js);
+  fs.writeFile(path, jsonStr, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+});
+  dialog.showMessageBox({ message: "The voice has been added!", buttons: ["OK"] });
 }
 
 //Display and refresh Sidebar
@@ -92,6 +104,24 @@ function showProjects() {
 }
 
 //Display project content
+function showContent(){
+  var path = __dirname + '/Projects/' + active;
+  var file = fs.readFileSync(path);
+  var json = JSON.parse(file);
+  var spesa = 0;
+  var raccolta = 0;
+  var str = '<header class="toolbar toolbar-header"><div class="toolbar-actions"><div class="btn-group"><button class="btn btn-default" onclick="App.add()"><span class="icon icon-pencil"></span></button><button class="btn btn-default" onclick="deleteProject()"><span class="icon icon-cancel-circled"></span></button></div></div></header><table class="table-striped"><thead><tr><th>Nome</th><th>Euro</th></tr></thead><tbody>';
+  for( var i = 0; i < json.length; i++){
+    if(json[i].money[0] == '-'){
+      str += '<tr><td>' + json[i].name + '</td><td><span style="color:#fc605b">' + json[i].money + '</span></td></tr>';
+    }
+    else{
+      str += '<tr><td>' + json[i].name + '</td><td><span style="color:#34c84a">' + json[i].money + '</span></td></tr>';
+    }
+  }
+  str += '</tbody></table><footer class="toolbar toolbar-footer"><div class="toolbar-actions"><button class="btn btn-default blocked">Spesi: 300 Euro</button><button class="btn btn-primary pull-right blocked">Da raccogliere: 600 Euro</button></div></footer>';
+  document.getElementById("content").innerHTML = str;
+}
 
 //Execute Submit Form AddProject
 function validateForm() {
@@ -120,10 +150,8 @@ function validateFormVoice() {
 //Watcher Sidebar
 fs.watch(__dirname + "/Projects", function (e) {
   showProjects();
-  //Show Project content
 });
 
-//Watcher content
 
 //Open Project in main Window
 function openProject(id) {
@@ -131,5 +159,5 @@ function openProject(id) {
   $("a.active").removeClass("active");
   document.getElementById(id).className += " active";
   console.log(id);
-  //Show Project content
+  showContent();
 }
