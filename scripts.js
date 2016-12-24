@@ -72,18 +72,19 @@ function createProject(filename) {
 }
 
 //Create a new Voice
-function createVoice(namev, moneyv) {
-  var path = __dirname + '/Projects/prova.json';
-  var file = fs.readFileSync(path);
-  var js = JSON.parse(file);
-  var change = {"name" : namev, "money" : moneyv };
-  js.push(change);
-  jsonStr = JSON.stringify(js);
-  fs.writeFile(path, jsonStr, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-});
+function createVoice(x,y) {
+  var path = __dirname + '/Projects/' + active;
+  var change = '{ "name" : "' + x + '", "money" : "' + y + '" }';
+  var obj = JSON.parse(change);
+  var data = fs.readFileSync(path);
+  var project = JSON.parse(data);
+  //Aggiunge elemento all'Object
+  project.push(obj);
+  var data = JSON.stringify(project);
+  fs.writeFile(path, data, function (err){
+    console.log(err);
+  })
+  showContent();
   dialog.showMessageBox({ message: "The voice has been added!", buttons: ["OK"] });
 }
 
@@ -137,13 +138,13 @@ function validateForm() {
 
 //Execute Submit Form AddVoice
 function validateFormVoice() {
-  var x = document.forms["addvoice"]["addvoicename"].value;
-  var y = document.forms["addvoice"]["addvoicemoney"].value;
-  if (x == "" || y == "") {
+  var name = document.forms["addvoice"]["addvoicename"].value;
+  var voice = document.forms["addvoice"]["addvoicemoney"].value;
+  if (name == "" || voice == "") {
         dialog.showMessageBox({ message: "Invalid name!", buttons: ["OK"] });
         return false;
     }
-    createVoice(x, y);
+    rem.createVoice(name, voice);
     App.close();
 }
 
