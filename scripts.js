@@ -26,12 +26,6 @@ var App = {
     addWindow.loadURL('file://' + __dirname + '/add.html');
     addWindow.openDevTools();
   },
-  addProject: function () {
-    var params = {toolbar: false, resizable: false, show: true, height: 120, width: 200};
-    addWindow = new BrowserWindow(params);
-    addWindow.setMenu(null);
-    addWindow.loadURL('file://' + __dirname + '/addProject.html');
-  },
   close: function() {
     var window = remote.getCurrentWindow();
     window.close();
@@ -84,7 +78,6 @@ function createVoice(x,y) {
   fs.writeFile(path, data, function (err){
     console.log(err);
   })
-  showContent();
   dialog.showMessageBox({ message: "The voice has been added!", buttons: ["OK"] });
 }
 
@@ -111,7 +104,7 @@ function showContent(){
   var json = JSON.parse(file);
   var spesa = 0;
   var raccolta = 0;
-  var str = '<header class="toolbar toolbar-header"><div class="toolbar-actions"><div class="btn-group"><button class="btn btn-default" onclick="App.add()"><span class="icon icon-pencil"></span></button><button class="btn btn-default" onclick="deleteProject()"><span class="icon icon-cancel-circled"></span></button></div></div></header><table class="table-striped"><thead><tr><th>Nome</th><th>Euro</th></tr></thead><tbody>';
+  var str = '<header class="toolbar toolbar-header"><div class="toolbar-actions"><form name="addvoice" id="addvoice" onsubmit="validateFormVoice()" class="form-inline"><div class="row"><div class="form-group col-xs-6"><button class="btn btn-default" onclick="deleteProject()"><span class="icon icon-cancel-circled"></span></button><input id="addvoicename" class="form-control input-group-lg pull-right" style="max-width: 200px; margin: 5px;" type="text" name="firstname" title="Enter first name" placeholder="Name"/><input id="addvoicemoney" class="form-control input-group-lg pull-right" style="max-width: 100px; margin: 5px;" type="number" name="addvoicemoney" title="Euro" placeholder="Euro"/><button type="submit" class="btn btn-form btn-primary pull-right" style="margin: 8px;">OK</button></div></div></header><table class="table-striped"><thead><tr><th>Nome</th><th>Euro</th></tr></thead><tbody>';
   for( var i = 0; i < json.length; i++){
     if(json[i].money[0] == '-'){
       str += '<tr><td>' + json[i].name + '</td><td><span style="color:#fc605b">' + json[i].money + '</span></td></tr>';
@@ -144,8 +137,7 @@ function validateFormVoice() {
         dialog.showMessageBox({ message: "Invalid name!", buttons: ["OK"] });
         return false;
     }
-    rem.createVoice(name, voice);
-    App.close();
+  createVoice(name, voice);
 }
 
 //Watcher Sidebar
