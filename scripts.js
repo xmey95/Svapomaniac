@@ -12,26 +12,6 @@ const path = require('path')
 let addWindow
 let active = '';
 
-//Object app(Controller)
-var App = {
-  // show "add" window
-  add: function () {
-    if(active == ''){
-      dialog.showMessageBox({ message: "First open a project!", buttons: ["OK"] });
-      return;
-    }
-    var params = {toolbar: false, resizable: false, show: true, height: 250, width: 350};
-    addWindow = new BrowserWindow(params);
-    addWindow.setMenu(null);
-    addWindow.loadURL('file://' + __dirname + '/add.html');
-    addWindow.openDevTools();
-  },
-  close: function() {
-    var window = remote.getCurrentWindow();
-    window.close();
-  }
-};
-
 //Delete selected Project
 function deleteProject() {
   if(active == ''){
@@ -54,14 +34,12 @@ function deleteProject() {
 //Create a new Project
 function createProject(filename) {
   var path = __dirname + "/Projects/" + filename + ".json";
-  var JSONObj = new Object();
-  JSONObj = { "Voices" : [] };
   console.log("Going to create project fileg file");
-  fs.writeJSON(path, JSONObj, function(err) {
-    if (err) {
-      return console.error(err);
+  fs.writeFile(path, "[]", function(err) {
+    if(err) {
+        return console.log(err);
     }
-  });
+});
   dialog.showMessageBox({ message: "The project has been created!", buttons: ["OK"] });
 }
 
@@ -84,7 +62,13 @@ function createVoice(x,y) {
 //Display and refresh Sidebar
 function showProjects() {
   console.log("Going to read directory /Projects");
-  fs.readdir(__dirname + "/Projects/",function(err, files){
+  var dir = __dirname + "/Projects/";
+
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+
+  fs.readdir(dir,function(err, files){
     if (err) {
       return console.error(err);
     }
@@ -104,16 +88,22 @@ function showContent(){
   var json = JSON.parse(file);
   var spesa = 0;
   var raccolta = 0;
-  var str = '<header class="toolbar toolbar-header"><div class="toolbar-actions"><form name="addvoice" id="addvoice" onsubmit="validateFormVoice()" class="form-inline"><div class="row"><div class="form-group col-xs-6"><button class="btn btn-default" onclick="deleteProject()"><span class="icon icon-cancel-circled"></span></button><input id="addvoicename" class="form-control input-group-lg pull-right" style="max-width: 200px; margin: 5px;" type="text" name="firstname" title="Enter first name" placeholder="Name"/><input id="addvoicemoney" class="form-control input-group-lg pull-right" style="max-width: 100px; margin: 5px;" type="number" name="addvoicemoney" title="Euro" placeholder="Euro"/><button type="submit" class="btn btn-form btn-primary pull-right" style="margin: 8px;">OK</button></div></div></header><table class="table-striped"><thead><tr><th>Nome</th><th>Euro</th></tr></thead><tbody>';
+  var str = '<header class="toolbar toolbar-header"><div class="toolbar-actions"><form name="addvoice" id="addvoice" onsubmit="validateFormVoice()" class="form-inline"><div class="row"><div class="form-group col-xs-6"><button class="btn btn-default" onclick="deleteProject()"><span class="icon icon-cancel-circled"></span></button><input id="addvoicename" class="form-control input-group-lg pull-right" style="max-width: 200px; margin: 5px;" type="text" name="firstname" title="Enter first name" placeholder="Name"/><input id="addvoicemoney" class="form-control input-group-lg pull-right" style="max-width: 100px; margin: 5px;" type="number" name="addvoicemoney" title="Euro" placeholder="Euro"/><button type="submit" class="btn btn-form btn-primary pull-right" style="margin: 8px;">OK</button></div></div></header><div><table class="table-striped"><thead><tr><th>Nome</th><th>Euro</th></tr></thead><tbody>';
   for( var i = 0; i < json.length; i++){
     if(json[i].money[0] == '-'){
+      var sp = json[i].money.substr(1);
+      sp = Number(sp);
+      spesa += sp;
       str += '<tr><td>' + json[i].name + '</td><td><span style="color:#fc605b">' + json[i].money + '</span></td></tr>';
     }
     else{
+      var rc = json[i].money;
+      rc = Number(rc);
+      raccolta += rc;
       str += '<tr><td>' + json[i].name + '</td><td><span style="color:#34c84a">' + json[i].money + '</span></td></tr>';
     }
   }
-  str += '</tbody></table><footer class="toolbar toolbar-footer"><div class="toolbar-actions"><button class="btn btn-default blocked">Spesi: 300 Euro</button><button class="btn btn-primary pull-right blocked">Da raccogliere: 600 Euro</button></div></footer>';
+  str += '</tbody></table></div><footer class="toolbar toolbar-footer"><div class="toolbar-actions"><button class="btn btn-default blocked">Spesi: ' + spesa + ' Euro</button><button class="btn btn-primary pull-right blocked">Da raccogliere: ' + (spesa - raccolta) + ' Euro</button></div></footer>';
   document.getElementById("content").innerHTML = str;
 }
 

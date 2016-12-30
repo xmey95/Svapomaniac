@@ -15,13 +15,24 @@
         <div class="pane-group">
           <div class="pane-sm sidebar">
             <nav class="nav-group">
+              <h5 class="nav-group-title">Aggiungi nuovo</h5>
+              <form name="addproject" id='addproject' class="form-inline" onsubmit="validateForm()">
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="firstname" class="sr-only"></label>
+                <input id="nameproject" class="form-control input-group-lg" style="max-width: 100px" type="text" name="addproject"
+                       title="Enter first name"
+                       placeholder="Name"/>
+                <button class="btn btn-large btn-primary pull-left" style="margin-left: 3px;">
+                  <span class="icon icon-plus"></span>
+                </button>
+            </div>
+        </div>
+    </form>
               <h5 class="nav-group-title">Projects</h5>
               <div class="sidebarview" id="sidebar">
               </div>
             </nav>
-                <button class="btn btn-large btn-primary pull-left" style="position: absolute; bottom: 0; margin: 5px;" onclick="createProject()">
-                  Add
-                </button>
           </div>
           <div class="pane" id="content">
 
